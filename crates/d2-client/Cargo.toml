@@ -1,0 +1,61 @@
+[package]
+autotests = false
+name = "d2-client"
+description = "The D2RUST game client: rendering, input, UI, audio, and the in-process single-player game."
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+publish.workspace = true
+license.workspace = true
+
+[dependencies]
+# The only crate that depends on Bevy.
+bevy.workspace = true
+d2-formats.workspace = true
+d2-native.workspace = true
+d2-proto.workspace = true
+d2-net.workspace = true
+# The in-process authoritative server of single player (`bridge::local`).
+d2-server.workspace = true
+# The single-player game: the wired simulation and the user's own tables.
+d2-sim.workspace = true
+d2-data.workspace = true
+# Local install: copy the user's files, convert them and bake animations.
+d2-install.workspace = true
+thiserror.workspace = true
+anyhow.workspace = true
+image = { version = "0.25", default-features = false, features = ["png"] }
+png = "0.18"
+sha2.workspace = true
+serde.workspace = true
+serde_json.workspace = true
+# Baked animation packs are deflate streams (`unit_rules::animation_baked`).
+flate2 = "1.1"
+toml_edit = { version = "0.25", default-features = false, features = ["parse"] }
+wgpu = { version = "29.0.3", default-features = false, features = ["wgsl", "dx12", "metal", "vulkan", "naga-ir"] }
+
+[target.'cfg(windows)'.dependencies]
+# The message box a fatal error shows (the release exe has no console).
+win-msgbox = "0.2.2"
+
+# The game executable.
+[[bin]]
+name = "D2RUST-Game"
+path = "src/main.rs"
+
+[build-dependencies]
+# Windows: the exe's icon and version resource.
+embed-resource = "3"
+
+[features]
+# Links Bevy as a shared library for fast test builds.
+dylib = ["bevy/dynamic_linking"]
+# The RNG draw log of d2-sim.
+rng-trace = ["d2-sim/rng-trace"]
+
+[dev-dependencies]
+proptest.workspace = true
+d2-formats = { workspace = true, features = ["test-support"] }
+
+[lints]
+workspace = true

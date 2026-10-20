@@ -1,0 +1,23 @@
+[package]
+name = "d2-server"
+description = "Authoritative game server that runs in-process for single player."
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+publish.workspace = true
+license.workspace = true
+
+[dependencies]
+d2-sim.workspace = true
+d2-data.workspace = true
+d2-formats.workspace = true
+d2-native.workspace = true
+d2-proto.workspace = true
+d2-net.workspace = true
+thiserror.workspace = true
+
+[lints]
+workspace = true
+
+[dev-dependencies]
+proptest.workspace = true

@@ -1,0 +1,19 @@
+[package]
+name = "d2-data"
+description = "Typed game data tables: readers for the text and binary tables of the original game."
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+publish.workspace = true
+license.workspace = true
+
+[dependencies]
+d2-formats.workspace = true
+sha2.workspace = true
+thiserror.workspace = true
+
+[lints]
+workspace = true
+
+[dev-dependencies]
+proptest.workspace = true

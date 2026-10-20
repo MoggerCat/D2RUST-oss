@@ -1,0 +1,21 @@
+[package]
+name = "d2-formats"
+description = "Readers for the original game's file formats: MPQ, DC6, DCC, DT1, DS1, COF, palettes and string tables."
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+publish.workspace = true
+license.workspace = true
+
+[dependencies]
+thiserror.workspace = true
+
+[features]
+# Test-only writers for building synthetic fixtures in unit tests.
+test-support = []
+
+[lints]
+workspace = true
+
+[dev-dependencies]
+proptest.workspace = true

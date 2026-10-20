@@ -1,0 +1,31 @@
+[package]
+name = "d2-sim"
+description = "Deterministic game simulation. No I/O, no rendering, no Bevy."
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+publish.workspace = true
+license.workspace = true
+
+[dependencies]
+d2-data.workspace = true
+d2-formats.workspace = true
+thiserror.workspace = true
+
+[dev-dependencies]
+proptest.workspace = true
+
+# Cargo cannot extend workspace lints, so this repeats them with additions.
+[lints.rust]
+unsafe_code = "forbid"
+
+[lints.clippy]
+all = { level = "warn", priority = -1 }
+# Determinism: no floats in game logic.
+float_arithmetic = "deny"
+
+[features]
+# Exposes synthetic fixtures of the unit tests to other unit tests.
+bench-fixtures = []
+# The RNG draw log of `debug::rng_trace`; off in normal builds.
+rng-trace = []

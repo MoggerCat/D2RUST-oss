@@ -1,0 +1,77 @@
+[workspace]
+resolver = "2"
+members = [
+    "crates/d2-formats",
+    "crates/d2-data",
+    "crates/d2-sim",
+    "crates/d2-proto",
+    "crates/d2-net",
+    "crates/d2-server",
+    "crates/d2-native",
+    "crates/d2-install",
+    "crates/d2-client",
+]
+
+[workspace.package]
+version = "0.1.0"
+edition = "2021"
+rust-version = "1.99"
+publish = false
+license = "MIT"
+
+[workspace.dependencies]
+# Internal crates
+d2-formats = { path = "crates/d2-formats" }
+d2-data = { path = "crates/d2-data" }
+d2-sim = { path = "crates/d2-sim" }
+d2-proto = { path = "crates/d2-proto" }
+d2-net = { path = "crates/d2-net" }
+d2-server = { path = "crates/d2-server" }
+d2-native = { path = "crates/d2-native" }
+d2-install = { path = "crates/d2-install" }
+
+# Rendering and windowing. Bevy may only be used by d2-client.
+bevy = "=0.19.1"
+
+thiserror = "2"
+anyhow = "1"
+sha2 = "0.10"
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+tokio = { version = "1", default-features = false, features = ["rt-multi-thread", "time", "sync", "net"] }
+getrandom = "0.3"
+proptest = { version = "1", default-features = false, features = ["std"] }
+toml = "0.9"
+
+[workspace.lints.rust]
+unsafe_code = "forbid"
+
+[workspace.lints.clippy]
+all = { level = "warn", priority = -1 }
+
+# Line tables keep file:line in panics and backtraces at a fraction of the
+# disk cost of full debug info.
+[profile.dev]
+debug = "line-tables-only"
+
+# A smaller release build with thin cross-crate LTO.
+[profile.dist]
+inherits = "release"
+lto = "thin"
+codegen-units = 16
+debug = "line-tables-only"
+
+# The fully optimized build, for releases (slow).
+[profile.dist-max]
+inherits = "dist"
+lto = "fat"
+codegen-units = 1
+
+# Dependencies are compiled with optimization in dev builds; otherwise
+# Bevy and the asset decoders make the game unplayable while debugging.
+[profile.dev.package."*"]
+opt-level = 2
+debug = false
+
+[profile.dev.package.d2-formats]
+opt-level = 2

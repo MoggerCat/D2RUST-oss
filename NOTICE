@@ -1,0 +1,18 @@
+D2RUST
+======
+
+Copyright (c) 2026 D2RUST contributors.
+
+This repository contains source code only. It contains no game assets,
+data archives, artwork, audio, executables or other material from the
+original game.
+
+You must own your own copy of the original game to use D2RUST. D2RUST reads
+the files of that copy on your machine; it neither ships nor downloads them.
+
+D2RUST is an unofficial fan project. It is not affiliated with, endorsed by
+or sponsored by the original game's publisher or its affiliates. All
+trademarks and copyrights in the original game belong to their respective
+owners.
+
+The source code is licensed under the MIT License; see `LICENSE`.
